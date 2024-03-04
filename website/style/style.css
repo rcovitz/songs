@@ -1,0 +1,8 @@
+* {
+    display: flex;
+    flex: 1;
+}
+
+.background {
+    background-color: #070f2c;
+}

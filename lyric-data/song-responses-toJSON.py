@@ -13,7 +13,7 @@ scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/au
 credentials = Credentials.from_service_account_file('C:\Google Drive Keys\songs-key.json', scopes=scope)
 
 # Open the Google Sheet by authorizing, then opening by the key
-# val = (authorize) (cred obj).(opening with key) (unique key from sheet url)     . (sheet1 tab)
+# val = (authorize) (cred obj).(opening with key) (unique key from sheet url)             .(sheet1 tab)
 sheet = authorize(credentials).open_by_key('130FPhr3XNLI3S62VfGh55wgAlHFhTkplKL0g1DsX_SQ').sheet1
 
 
