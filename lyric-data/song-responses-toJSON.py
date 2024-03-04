@@ -1,6 +1,10 @@
 import gspread
 from google.oauth2.service_account import Credentials
 import pandas as pd
+import json
+from numpy import arange
+from random import shuffle
+
 
 from os import system
 system("cls")
@@ -15,11 +19,19 @@ client = gspread.authorize(credentials)
 # Open the Google Sheet by its title
 sheet = client.open_by_key('130FPhr3XNLI3S62VfGh55wgAlHFhTkplKL0g1DsX_SQ').sheet1
 
-# Get all values from the Google Sheet
-data = sheet.get_all_values()
+# Get all values from the Google Sheet and drops the Timestamp column
+dataframe = pd.DataFrame(sheet.get_all_records()).drop(columns=["Timestamp"])
 
-# Convert the data to a DataFrame
-df = pd.DataFrame(data[1:], columns=data[0])
+data = dataframe.to_dict(orient='records')
 
-# Filter specific columns and create a text file
-print(df)
+randNums = arange(0, len(data))
+shuffle(randNums)
+
+for i, record in enumerate(data):
+    key = randNums[i]
+    data[i] = {int(key): record}
+
+
+with open('song_lyrics.json', 'w') as file:
+    json.dump(data, file, indent=4)
+print("Written to JSON file.")
